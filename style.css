@@ -27,7 +27,8 @@
 body{
     background-color: var(--bodyBackground);
     min-height: 100vh;
-    justify-content: end;
+    align-items: center;
+    justify-content: center;
 }
 
 body,form,main,section, .amount-div{
@@ -36,7 +37,8 @@ body,form,main,section, .amount-div{
 }
 
 main{
-    
+    max-width: 45em;
+    width: 100%;
     background-color: var(--bodyBackground);
     form{
         justify-content: space-around;
@@ -132,3 +134,44 @@ main{
     } */
 }
 
+@media (min-width: 420px) {
+    body{
+        padding: 2em;
+    }
+}
+@media (min-width: 650px) {
+    main{
+        form,.result-section{
+            display: grid;
+        }
+        form{
+            padding: 1.5em;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 
+            'bill result'
+            'tip result'
+            'people result';
+            gap: 0 30px;
+            .result-section{
+                grid-area: result;
+                margin: 0;
+                grid-template-rows: 0.3fr 0.3fr 1fr;
+                .reset{
+                    align-self: end;
+                }
+            }
+            .tip-section{
+                grid-area: tip;
+            }
+            .bill-section{
+                grid-area: bill;
+            }
+            .people-section{
+                grid-area: people;
+            }
+        }
+        img{
+            padding-top: 0 ;
+        } 
+    }
+}
