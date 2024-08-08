@@ -1,0 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root{
+    /* Primary */
+    --PrimaryStrongcyan: hsl(172, 67%, 45%);
+    /* Neutral */
+    --VerydarkCyan: hsl(183, 100%, 15%);
+    --DarkgrayishCyan: hsl(186, 14%, 43%);
+    --GrayishCyan: hsl(184, 14%, 56%);
+    --LightGrayishCyan: hsl(185, 41%, 84%);
+    --VeryLightGrayishCyan: hsl(189, 41%, 97%);
+    --White: hsl(0, 0%, 100%);
+    --font-size-inputs: 24px;
+}
