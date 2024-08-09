@@ -3,44 +3,39 @@ const form = document.querySelector('.tip-calculator');
 const inputs = document.querySelectorAll('input');
 const buttonOption = document.querySelectorAll('button[type="button"]')
 
-captureEvents()
+
 buttonValue()
 
 function addEvent(id){
-    const input = document.querySelector(`#${id}`)
-    input.addEventListener('input', e=> valor(input.value, input.id))
+    const input = parseInt(document.querySelector(`#${id}`).value);
+    return input
 }
 
-function captureEvents() {
-    addEvent("bill");
-    addEvent("custom");
-    addEvent("people");
-}
-
-function valor(button,input,idInput) {
-    const numValido = parseFloat(input);
-    const buttonValido = parseInt(button);
-    console.log(button);
-    if (idInput === "bill"){
-        console.log(descaunt(button,numValido));
-    }else{
-        console.log("otros inputs");
-    }
-}
 function buttonValue(){
     buttonOption.forEach(button=>{
-        button.addEventListener('click',e => valor(button.value))
+        button.addEventListener('click',e => {
+            const bill = addEvent("bill");
+            const custom = addEvent("custom");
+            const people = addEvent("people");
+            const button = parseInt(e.target.value);
+            const descaunt = personTip(button,bill,people);
+            showTotal("tip-amount", descaunt);
+            showTotal("total-amount", personTotal(descaunt,bill,people));
+            // console.log(descaunt(button,bill))
+        })
     })
 }
 
-function divide(total,people){
-    return total/people
+//funcion descuento por persona
+function personTip(percent,bill,people){
+    const divide = ((percent/ 100) * bill)/people
+    return divide;
 }
 
-// funcion de descuento
-function descaunt(percent,bill){
-    const divide = (percent/ 100) * bill
-    return divide;
+//funcion de cuenta total dividida
+
+function personTotal(descaunt,bill,people){
+    return (descaunt + bill)/people
 }
 
 //funcion para mostrar el total
