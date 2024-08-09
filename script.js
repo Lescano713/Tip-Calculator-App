@@ -33,7 +33,9 @@ function buttonValue(){
     })
 }
 
-
+function divide(total,people){
+    return total/people
+}
 
 // funcion de descuento
 function descaunt(percent,bill){
@@ -47,26 +49,7 @@ function showTotal(id, value){
     h1.textContent = value;
 }
 
-// function showBill(){
-//     showTotal("tip-amount",descaunt())
-// }
 
-// console.log(buttonValue)
-
-// inputValue()
-
-// function inputValue(){
-//     inputs.forEach(input=>{
-//         input.addEventListener('input', e=>{
-//             if(input.id === "bill"){
-//                 const valor = input.value;
-//                 console.log(valor - 5)
-//             }else{
-//                 console.log(input.value + " " + input.id);
-//             }
-//         });
-//     })
-// }
 
 
 // console.log();
