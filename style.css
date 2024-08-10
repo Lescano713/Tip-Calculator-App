@@ -101,16 +101,7 @@ main{
         color: var(--ErrorColor);
     }
 }
-#people, #bill{
-    background-repeat: no-repeat;
-    background-position: 5% 50%;
-}
-#people{
-    background-image: url('./images/icon-person.svg');
-}
-#bill{
-    background-image: url('./images/icon-dollar.svg');
-}
+
 .tip-section{
     flex-wrap: wrap;
     gap: 10px 0;
@@ -149,6 +140,17 @@ main{
         justify-content: space-between;
         margin: 7px 0;
     }
+}
+
+#people, #bill{
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+}
+#people{
+    background-image: url('./images/icon-person.svg');
+}
+#bill{
+    background-image: url('./images/icon-dollar.svg');
 }
 
 .active{
