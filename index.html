@@ -14,7 +14,7 @@
     <form action="" id="tip-calculator">
       <section class="bill-section">
           <label for="bill">Bill</label>
-          <input  type="number" id="bill" placeholder="0">
+          <input  type="number" id="bill" placeholder="0" min="0">
       </section>
       <section class="tip-section">
           <label>Select Tip %</label>
@@ -23,7 +23,7 @@
           <button type="button" value="15">15%</button>
           <button type="button" value="25">25%</button>
           <button type="button" value="50">50%</button>
-          <input type="number" placeholder="Custom" id="custom">
+          <input type="number" min="0" placeholder="Custom" id="custom">
       </section>
       <section class="people-section">
           <label for="people">Number of People</label>
@@ -35,14 +35,14 @@
             <p>Tip Amount</p>
             <small>/ person</small>
           </div>
-          <h1 id="tip-amount" >VALOR</h1>
+          <h1 id="tip-amount" >$0.00</h1>
         </div>
         <div class="amount-div">
           <div>
             <p>Total</p>
             <small>/ person</small>
           </div>
-          <h1 id="total-amount">VALOR</h1>
+          <h1 id="total-amount">$0.00</h1>
         </div>
         <button class="reset" type="reset">RESET</button>
       </section>

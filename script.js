@@ -2,66 +2,89 @@ const main = document.querySelector('main');
 const form = document.querySelector('.tip-calculator');
 const inputs = document.querySelectorAll('input');
 const buttonOption = document.querySelectorAll('button[type="button"]')
+const reset = document.querySelector('button[type=reset]');
 
+reset.addEventListener('click', e=>{
+    buttonOption.forEach(button =>{
+        button.classList.remove("active");
+    })
+    showTotal("tip-amount", 0);
+    showTotal("total-amount", 0);
+    reset.classList.remove('available');
+});
 
-buttonValue()
-
-function addEvent(id){
-    const input = parseInt(document.querySelector(`#${id}`).value);
-    return input
+function queryInput(id){
+    const input = parseFloat(document.querySelector(`#${id}`).value);
+    return input;
 }
 
-function buttonValue(){
+function inputEvent(){
+    inputs.forEach(input=>{
+        input.addEventListener("input", uploadDiscount);
+        showTotal("tip-amount", 0);
+        showTotal("total-amount", 0);
+    })
+}
+
+function uploadDiscount(){
+    const people = queryInput("people");
+    const bill = queryInput("bill") || 0;
+    const custom = queryInput("custom") || 0;
+    const button = parseFloat(document.querySelector('button.active')?.value) || 0;
+    const discount = custom > 0 ? custom : button;
+    if(discount === custom){
+        buttonOption.forEach(button =>{
+            button.classList.remove("active");
+        })
+    }
+    const tip = calculateDiscount(discount,bill);
+    if(people === 0 || isNaN(people)){
+        showTotal("tip-amount", 0);
+        showTotal("total-amount", 0);
+    }else{
+        showTotal("tip-amount", personTip(tip,people));
+        showTotal("total-amount", personTotal(tip,bill,people));
+        reset.classList.add("available")
+    }
+}
+
+function buttonEvent(){
     buttonOption.forEach(button=>{
         button.addEventListener('click',e => {
-            const bill = addEvent("bill");
-            const custom = addEvent("custom");
-            const people = addEvent("people");
-            const button = parseInt(e.target.value);
-            const descaunt = personTip(button,bill,people);
-            showTotal("tip-amount", descaunt);
-            showTotal("total-amount", personTotal(descaunt,bill,people));
-            // console.log(descaunt(button,bill))
+            document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            document.querySelector('#custom').value = "";
+            uploadDiscount()
         })
     })
 }
 
-//funcion descuento por persona
-function personTip(percent,bill,people){
-    const divide = ((percent/ 100) * bill)/people
+//function total descount
+function calculateDiscount(percent,bill){
+    const divide = ((percent/ 100) * bill)
+    return divide;
+}
+//function descount per person
+function personTip(discount,people){
+    const divide = discount/people
     return divide;
 }
 
-//funcion de cuenta total dividida
-
-function personTotal(descaunt,bill,people){
-    return (descaunt + bill)/people
+//function to calculate the amount of total per person
+function personTotal(tip,bill,people){
+    return (bill + tip)/people
 }
 
-//funcion para mostrar el total
+//function to show the total
 function showTotal(id, value){
     const h1 = document.querySelector(`#${id}`);
-    h1.textContent = value;
+    h1.textContent = `$${value.toFixed(2)}`;
 }
+inputEvent()
+buttonEvent()
 
 
 
-
-// console.log();
-// en input bill agregar la cantidad del monto
-//capturar bill
-//en select tip capturar el evento de click en cada boton y guardad el valor
-//hacer un if si el usuario ingresasu propio valor
-//capturar el valor del input custom
-//capturar el valor de people
-//Todos lo valores capturados serán usados para ejecutar una operación
-//la primera operación sacará la cuenta por persona de la propina
-//la segunda operación saacará la cuenta del total + propina incluida, por persona.
-
-
-//operación
-//Se pide la cuenta, luego se le aplica el descuento
-//se pide el número de personas y se divide la cuenta
 
 
 //bton reset
