@@ -14,6 +14,7 @@
     <form action="" id="tip-calculator">
       <section class="bill-section">
           <label for="bill">Bill</label>
+          <small class="error-message">Can't be negative</small>
           <input  type="number" id="bill" placeholder="0" min="0">
       </section>
       <section class="tip-section">
@@ -27,7 +28,7 @@
       </section>
       <section class="people-section">
           <label for="people">Number of People</label>
-          <small>Can't be zero</small>
+          <small class="error-message">Can't be zero</small>
           <input type="number" id="people" placeholder="0">
       </section>
       <section class="result-section">

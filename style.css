@@ -49,6 +49,14 @@ main{
     }
     section{
         margin: 10px 0;
+        position: relative;
+        .error-message{
+            position: absolute;
+            display: none;
+            right: 0;
+            top: 0;
+            color: var(--ErrorColor);
+        }
     }
     button,input{
         border: none;
@@ -91,16 +99,6 @@ main{
     }
 }
 
-.people-section{
-    position: relative;
-    small{
-        position: absolute;
-        display: none;
-        right: 0;
-        top: 0;
-        color: var(--ErrorColor);
-    }
-}
 
 .tip-section{
     flex-wrap: wrap;
