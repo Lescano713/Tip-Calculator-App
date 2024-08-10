@@ -3,15 +3,16 @@ const form = document.querySelector('.tip-calculator');
 const inputs = document.querySelectorAll('input');
 const buttonOption = document.querySelectorAll('button[type="button"]')
 const reset = document.querySelector('button[type=reset]');
+const sectionPeople = document.querySelector('.people-section');
 
 reset.addEventListener('click', e=>{
-    buttonOption.forEach(button =>{
-        button.classList.remove("active");
-    })
+    removeStyle("active")
     showTotal("tip-amount", 0);
     showTotal("total-amount", 0);
     reset.classList.remove('available');
+    sectionPeople.classList.remove('error')
 });
+
 
 function queryInput(id){
     const input = parseFloat(document.querySelector(`#${id}`).value);
@@ -21,8 +22,6 @@ function queryInput(id){
 function inputEvent(){
     inputs.forEach(input=>{
         input.addEventListener("input", uploadDiscount);
-        showTotal("tip-amount", 0);
-        showTotal("total-amount", 0);
     })
 }
 
@@ -32,26 +31,29 @@ function uploadDiscount(){
     const custom = queryInput("custom") || 0;
     const button = parseFloat(document.querySelector('button.active')?.value) || 0;
     const discount = custom > 0 ? custom : button;
+    const tip = calculateTip(discount,bill);
+
     if(discount === custom){
-        buttonOption.forEach(button =>{
-            button.classList.remove("active");
-        })
+        removeStyle('active');
     }
-    const tip = calculateDiscount(discount,bill);
+
     if(people === 0 || isNaN(people)){
         showTotal("tip-amount", 0);
         showTotal("total-amount", 0);
+        sectionPeople.classList.add('error')
     }else{
-        showTotal("tip-amount", personTip(tip,people));
-        showTotal("total-amount", personTotal(tip,bill,people));
+        sectionPeople.classList.remove('error')
+        showTotal("tip-amount", tipPerPerson(tip,people));
+        showTotal("total-amount", totalPerPerson(tip,bill,people));
         reset.classList.add("available")
     }
 }
 
+//add eventsListener to buttons
 function buttonEvent(){
     buttonOption.forEach(button=>{
         button.addEventListener('click',e => {
-            document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            removeStyle("active");
             e.target.classList.add('active');
             document.querySelector('#custom').value = "";
             uploadDiscount()
@@ -59,19 +61,23 @@ function buttonEvent(){
     })
 }
 
-//function total descount
-function calculateDiscount(percent,bill){
-    const divide = ((percent/ 100) * bill)
-    return divide;
-}
-//function descount per person
-function personTip(discount,people){
-    const divide = discount/people
-    return divide;
+function removeStyle(style){
+    buttonOption.forEach(button =>{
+        button.classList.remove(`${style}`);
+    })
 }
 
-//function to calculate the amount of total per person
-function personTotal(tip,bill,people){
+//function total tip
+function calculateTip(percent,bill){
+    return ((percent/ 100) * bill)
+}
+//function to calculate tip per person
+function tipPerPerson(discount,people){
+    return discount/people
+}
+
+//function to calculate the total amount per person
+function totalPerPerson(tip,bill,people){
     return (bill + tip)/people
 }
 
