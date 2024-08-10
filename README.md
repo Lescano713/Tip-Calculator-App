@@ -54,44 +54,62 @@ Users should be able to:
 
 ### What I learned
 
-<p>I learned about using media queries along with the property <b>grid-template-columns: repeat(auto-fit, minmax(13em, 1fr))</b> to ensure that the articles cover the entire container on screens larger than 550px. Additionally, I used the pseudo-selector <b>:not()</b> to apply styles while excluding a specific element.</p>
+<p>I learned how to use media queries along with the properties <b>grid-template-columns</b> and <b>flex-wrap</b> to ensure that the buttons occupy the same width and wrap to the next line if there is not enough space. Additionally, I used <b>!important</b> to override other CSS properties.</p>
 
 
 ```css
-  @media (min-width: 550px ) {
-      main{
-          grid-template-columns: repeat(auto-fit ,minmax(13em,1fr));
-          max-width: 90%;
-          width: 62em;}
-      article:not(.articleUser){
-              height: 13em;
-              .timeframesDiv{
-                  grid-template-columns: 1fr 0.3fr;
-                  padding-bottom: 1em;
-                  small{
-                      grid-row: 3;
-                      justify-self: self-start;
-                  }
-              }
-          }
+  .active{
+    background-color: var(--PrimaryStrongcyan)!important;
+  }
+  .available{
+      background-color: var(--PrimaryStrongcyan)!important;
+      cursor: pointer !important;
+      &:hover{
+          background-color: var(--buttonHover)!important;
+      }
   }
 ```
 
-<p>To retrieve JSON data, I used the <b>fetch API</b>. To streamline the code and enhance maintainability, I implemented several helper functions. These functions were designed to handle repetitive tasks and improve overall code efficiency.</p>
+<p>To keep the code readable and maintainable while reducing repetition, I implemented different functions for later reuse.</p>
 
 ```js
-fetch('data.json')
-    .then(response => response.json())
-    .then(data => showContent(data[0]));
+//function total tip
+function calculateTip(percent,bill){
+    return ((percent/ 100) * bill)
+}
+//function to calculate tip per person
+function tipPerPerson(discount,people){
+  //code
+}
 
-function changeColor(target, options){
-    target.style.color = "white";
-    options.forEach(option =>{
-        option.style.color = "hsl(236, 100%, 87%)";
-    })
+//function to calculate the total amount per person
+function totalPerPerson(tip,bill,people){
+  //code
+}
+
+//function to show the total
+function showTotal(id, value){
+  //code
 }
 ```
+<p>To ensure the data is correct, I used validations to check for numbers, ensuring they are not less than 0 and not NaN.</p>
 
+
+```js
+function queryInput(id){
+    const input = parseFloat(document.querySelector(`#${id}`).value);
+    return isNaN(input) ? 0 : input;
+}
+
+if(people <= 0){
+        showTotal("tip-amount", 0);
+        showTotal("total-amount", 0);
+        sectionPeople.classList.add('error');
+    }else if(bill < 0){
+        sectionBill.classList.add('error');
+        sectionPeople.classList.remove('error');
+    }
+```
 
 
 ### Continued development
