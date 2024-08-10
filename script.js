@@ -1,22 +1,22 @@
-const main = document.querySelector('main');
-const form = document.querySelector('.tip-calculator');
 const inputs = document.querySelectorAll('input');
 const buttonOption = document.querySelectorAll('button[type="button"]')
 const reset = document.querySelector('button[type=reset]');
 const sectionPeople = document.querySelector('.people-section');
+const sectionBill = document.querySelector('.bill-section');
 
 reset.addEventListener('click', e=>{
     removeStyle("active")
     showTotal("tip-amount", 0);
     showTotal("total-amount", 0);
     reset.classList.remove('available');
-    sectionPeople.classList.remove('error')
+    sectionPeople.classList.remove('error');
+    sectionBill.classList.remove('error');
 });
 
 
 function queryInput(id){
     const input = parseFloat(document.querySelector(`#${id}`).value);
-    return input;
+    return isNaN(input) ? 0 : input;
 }
 
 function inputEvent(){
@@ -37,15 +37,19 @@ function uploadDiscount(){
         removeStyle('active');
     }
 
-    if(people === 0 || isNaN(people)){
+    if(people <= 0){
         showTotal("tip-amount", 0);
         showTotal("total-amount", 0);
-        sectionPeople.classList.add('error')
+        sectionPeople.classList.add('error');
+    }else if(bill < 0){
+        sectionBill.classList.add('error');
+        sectionPeople.classList.remove('error');
     }else{
-        sectionPeople.classList.remove('error')
+        sectionPeople.classList.remove('error');
+        sectionBill.classList.remove('error');
         showTotal("tip-amount", tipPerPerson(tip,people));
         showTotal("total-amount", totalPerPerson(tip,bill,people));
-        reset.classList.add("available")
+        reset.classList.add("available");
     }
 }
 
@@ -88,15 +92,4 @@ function showTotal(id, value){
 }
 inputEvent()
 buttonEvent()
-
-
-
-
-
-//bton reset
-//al inicio el boton estará bloqueado, luego cuando se haya iniciado una cuenta el botón tendrá el estilo de los demás botones
-
-//validaciones
-//solo números
-//en people no puede ser ni 0 ni vacío, si no es así se lanza un mensaje de error con su estilo
 
