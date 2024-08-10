@@ -4,6 +4,7 @@
 :root{
     /* Primary */
     --PrimaryStrongcyan: hsl(172, 67%, 45%);
+    --ErrorColor: hsl(12, 100%, 67%);
     /* Neutral */
     --buttonBackground: hsl(183, 100%, 15%);
     --resultBackground: hsl(183, 100%, 15%);
@@ -90,17 +91,26 @@ main{
     }
 }
 
-.active{
-    background-color: var(--PrimaryStrongcyan)!important;
-}
-.available{
-    background-color: var(--PrimaryStrongcyan)!important;
-    cursor: pointer !important;
-    &:hover{
-        background-color: var(--buttonHover)!important;
+.people-section{
+    position: relative;
+    small{
+        position: absolute;
+        display: none;
+        right: 0;
+        top: 0;
+        color: var(--ErrorColor);
     }
 }
-
+#people, #bill{
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+}
+#people{
+    background-image: url('./images/icon-person.svg');
+}
+#bill{
+    background-image: url('./images/icon-dollar.svg');
+}
 .tip-section{
     flex-wrap: wrap;
     gap: 10px 0;
@@ -126,7 +136,7 @@ main{
     }
     h1{
         color: var(--PrimaryStrongcyan);
-        font-size: 18px;
+        font-size: 33px;
     }
     small{
         font-size: 12px;
@@ -141,6 +151,16 @@ main{
     }
 }
 
+.active{
+    background-color: var(--PrimaryStrongcyan)!important;
+}
+.available{
+    background-color: var(--PrimaryStrongcyan)!important;
+    cursor: pointer !important;
+    &:hover{
+        background-color: var(--buttonHover)!important;
+    }
+}
 @media (min-width: 420px) {
     body{
         padding: 2em;
@@ -180,5 +200,16 @@ main{
         img{
             padding-top: 0 ;
         } 
+    }
+}
+.error{
+    small{
+        display: block !important;
+    }
+    input:focus{
+        outline-color: var(--ErrorColor);
+    }
+    input{
+        border: 1px solid var(--ErrorColor);
     }
 }
